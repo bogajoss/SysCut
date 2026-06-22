@@ -26,7 +26,8 @@ export const translations = {
 
 type DeepString<T> = T extends string
   ? string
-  : T extends Function
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  : T extends (...args: any[]) => any
     ? T
     : T extends object
       ? { [K in keyof T]: DeepString<T[K]> }

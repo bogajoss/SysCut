@@ -13,9 +13,10 @@ export const siteTranslations = {
       logoUrl: "/logos/syscut/svg/logo.svg",
     },
     social: {
-      x: "https://x.com/syscutapp",
-      github: "https://github.com/TeamProhor/SysCut",
-      discord: "https://discord.com/invite/Mu3acKZvCp",
+      x: "https://x.com/systemadminbd",
+      github: "https://github.com/systemadminbd",
+      discord: "https://discord.gg/systemadminbd",
+      telegram: "https://t.me/systemadminbd",
     },
     externalTools: [
       {
@@ -55,9 +56,10 @@ export const siteTranslations = {
       logoUrl: "/logos/syscut/svg/logo.svg",
     },
     social: {
-      x: "https://x.com/syscutapp",
-      github: "https://github.com/TeamProhor/SysCut",
-      discord: "https://discord.com/invite/Mu3acKZvCp",
+      x: "https://x.com/systemadminbd",
+      github: "https://github.com/systemadminbd",
+      discord: "https://discord.gg/systemadminbd",
+      telegram: "https://t.me/systemadminbd",
     },
     externalTools: [
       {

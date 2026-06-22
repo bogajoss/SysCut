@@ -2,34 +2,17 @@
 
 import Link from "next/link";
 import { RiDiscordFill, RiTwitterXLine } from "react-icons/ri";
-import { FaGithub } from "react-icons/fa6";
+import { FaGithub, FaTelegram } from "react-icons/fa6";
 import Image from "next/image";
 import { useTranslation } from "@/hooks/use-translation";
-
-type Category = "resources" | "company";
-
-interface FooterLink {
-  label: string;
-  href: string;
-}
 
 export function Footer() {
   const { t } = useTranslation();
 
-  const links: Record<Category, FooterLink[]> = {
-    resources: [],
-    company: [
-      {
-        label: t.home.footer.about,
-        href: `${t.site.social.github}/blob/main/README.md`,
-      },
-    ],
-  };
-
   return (
     <footer className="bg-background border-t">
       <div className="mx-auto max-w-5xl px-8 py-10">
-        <div className="mb-8 grid grid-cols-1 gap-12 md:grid-cols-2">
+        <div className="mb-8 flex flex-col gap-12">
           {/* Brand Section */}
           <div className="max-w-sm md:col-span-1">
             <div className="mb-4 flex items-center justify-start gap-2">
@@ -70,39 +53,15 @@ export function Footer() {
               >
                 <RiDiscordFill className="size-5" />
               </Link>
+              <Link
+                href={t.site.social.telegram}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaTelegram className="size-5" />
+              </Link>
             </div>
-          </div>
-
-          <div className="flex items-start justify-start gap-12 py-2">
-            {(["resources", "company"] as const).map((category) => (
-              <div key={category} className="flex flex-col gap-2">
-                <h3 className="text-foreground font-semibold">
-                  {category === "resources"
-                    ? t.home.footer.resources
-                    : t.home.footer.company}
-                </h3>
-                <ul className="space-y-2 text-sm">
-                  {links[category].map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="text-muted-foreground hover:text-foreground transition-colors"
-                        target={
-                          link.href.startsWith("http") ? "_blank" : undefined
-                        }
-                        rel={
-                          link.href.startsWith("http")
-                            ? "noopener noreferrer"
-                            : undefined
-                        }
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
           </div>
         </div>
 

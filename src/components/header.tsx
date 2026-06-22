@@ -12,7 +12,6 @@ import {
   Copy01Icon,
   Download01Icon,
   GithubIcon,
-  LinkSquare02Icon,
   Menu02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
