@@ -461,7 +461,7 @@ function upsertScalarChannelKey({
   });
 }
 
-export function getChannel({
+function getChannel({
   animations,
   propertyPath,
 }: {
@@ -578,7 +578,7 @@ export function upsertPathKeyframe({
   });
 }
 
-export function upsertKeyframe({
+function upsertKeyframe({
   channel,
   time,
   value,
@@ -617,7 +617,7 @@ export function upsertKeyframe({
   });
 }
 
-export function removeKeyframe({
+function removeKeyframe({
   channel,
   keyframeId,
 }: {
@@ -659,7 +659,7 @@ export function removeKeyframe({
   });
 }
 
-export function retimeKeyframe({
+function retimeKeyframe({
   channel,
   keyframeId,
   time,
@@ -732,7 +732,7 @@ export function setChannel({
   });
 }
 
-export function setBindingComponentChannel({
+function setBindingComponentChannel({
   animations,
   propertyPath,
   componentKey,

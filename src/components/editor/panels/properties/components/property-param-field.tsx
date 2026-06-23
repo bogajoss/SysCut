@@ -150,6 +150,7 @@ function ParamInput({
     return (
       <input
         className="border-input bg-accent h-9 w-full rounded-md border px-3 text-sm outline-none"
+        aria-label={param.label}
         value={String(value)}
         onChange={(event) => onPreview(event.currentTarget.value)}
         onBlur={onCommit}

@@ -27,7 +27,7 @@ export type MaskDefinitionForRegistration = {
   [TType in MaskType]: MaskDefinition<TType>;
 }[MaskType];
 
-export const BASE_MASK_PARAM_DEFINITIONS: ParamDefinition<
+const BASE_MASK_PARAM_DEFINITIONS: ParamDefinition<
   keyof BaseMaskParams & string
 >[] = [
   {
@@ -72,7 +72,7 @@ export interface RegisteredMaskDefinition {
   icon: MaskIconProps;
 }
 
-export class MasksRegistry extends DefinitionRegistry<
+class MasksRegistry extends DefinitionRegistry<
   MaskType,
   RegisteredMaskDefinition
 > {

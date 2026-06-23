@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { useTranslation } from "@/hooks/use-translation";
 
@@ -24,12 +24,17 @@ export function RenameProjectDialog({
   projectName: string;
 }) {
   const { t } = useTranslation();
-  const [name, setName] = useState(projectName);
+  const [name, setName] = useState("");
 
-  const handleOpenChange = (open: boolean) => {
-    if (open) {
+  const prevIsOpenRef = useRef(isOpen);
+  if (prevIsOpenRef.current !== isOpen) {
+    prevIsOpenRef.current = isOpen;
+    if (isOpen) {
       setName(projectName);
     }
+  }
+
+  const handleOpenChange = (open: boolean) => {
     onOpenChange(open);
   };
 

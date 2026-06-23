@@ -1,5 +1,4 @@
 export {
-  findBookmarkIndex,
   isBookmarkAtTime,
   toggleBookmarkInArray,
   removeBookmarkFromArray,

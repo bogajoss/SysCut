@@ -1,7 +1,7 @@
 import { DefinitionRegistry } from "@/params/registry";
 import type { EffectDefinition } from "@/effects/types";
 
-export class EffectsRegistry extends DefinitionRegistry<
+class EffectsRegistry extends DefinitionRegistry<
   string,
   EffectDefinition
 > {

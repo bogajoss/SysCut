@@ -66,24 +66,28 @@ export function ScenesView({ children }: { children: React.ReactNode }) {
   };
 
   const handleDeleteSelected = async () => {
-    for (const sceneId of selectedScenes) {
-      const scene = scenes.find((scene) => scene.id === sceneId);
-      if (!scene) {
-        continue;
-      }
+    const sceneMap = new Map(scenes.map((s) => [s.id, s]));
 
-      const { canDelete, reason } = canDeleteScene({ scene });
-      if (!canDelete) {
-        toast.error(reason || "Failed to delete scene");
-        continue;
-      }
+    await Promise.all(
+      Array.from(selectedScenes).map(async (sceneId) => {
+        const scene = sceneMap.get(sceneId);
+        if (!scene) {
+          return;
+        }
 
-      try {
-        await editor.scenes.deleteScene({ sceneId });
-      } catch (error) {
-        console.error("Failed to delete scene:", error);
-      }
-    }
+        const { canDelete, reason } = canDeleteScene({ scene });
+        if (!canDelete) {
+          toast.error(reason || "Failed to delete scene");
+          return;
+        }
+
+        try {
+          await editor.scenes.deleteScene({ sceneId });
+        } catch (error) {
+          console.error("Failed to delete scene:", error);
+        }
+      }),
+    );
     setSelectedScenes(new Set());
     setIsSelectMode(false);
   };

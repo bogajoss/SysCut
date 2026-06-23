@@ -1,7 +1,7 @@
 import type { StickerProvider } from "@/stickers/types";
 import { DefinitionRegistry } from "@/params/registry";
 
-export class StickersRegistry extends DefinitionRegistry<
+class StickersRegistry extends DefinitionRegistry<
   string,
   StickerProvider
 > {

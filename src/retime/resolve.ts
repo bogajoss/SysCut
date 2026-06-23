@@ -25,7 +25,7 @@ export function getClipTimeAtSourceTime({
   return sourceTime / getSafeRate({ rate: retime?.rate ?? 1 });
 }
 
-export function getEffectiveRateAt({
+function getEffectiveRateAt({
   retime,
 }: {
   clipTime?: number;

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { DraggableItem } from "@/components/editor/panels/assets/draggable-item";
 import { Button } from "@/components/ui/button";
@@ -355,9 +355,9 @@ function StickerItem({
   const [isAdding, setIsAdding] = useState(false);
   const [hasImageError, setHasImageError] = useState(false);
 
-  const [prevItemId, setPrevItemId] = useState(item.id);
-  if (prevItemId !== item.id) {
-    setPrevItemId(item.id);
+  const prevItemIdRef = useRef(item.id);
+  if (prevItemIdRef.current !== item.id) {
+    prevItemIdRef.current = item.id;
     setHasImageError(false);
   }
 

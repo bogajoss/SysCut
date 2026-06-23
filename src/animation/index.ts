@@ -1,7 +1,5 @@
 export {
   getChannelValueAtTime,
-  getDiscreteChannelValueAtTime,
-  getScalarChannelValueAtTime,
   getScalarSegmentInterpolation,
   normalizeChannel,
 } from "./interpolation";
@@ -9,10 +7,8 @@ export {
 export {
   clampAnimationsToDuration,
   cloneAnimations,
-  getChannel,
   removeElementKeyframe,
   retimeElementKeyframe,
-  setBindingComponentChannel,
   setChannel,
   splitAnimationsAtTime,
   updateScalarKeyframeCurve,
@@ -33,7 +29,6 @@ export {
 
 export {
   type EditableScalarChannels,
-  getEditableScalarChannel,
   getEditableScalarChannels,
   getScalarKeyframeContext,
 } from "./graph-channels";
@@ -59,11 +54,9 @@ export {
 } from "./effect-param-channel";
 
 export {
-  getGroupKeyframesAtTime,
-  hasGroupKeyframeAtTime,
   type GroupKeyframeRef,
 } from "./property-groups";
 
-export { isAnimationPath, isAnimationPropertyPath } from "./path";
+export { isAnimationPath } from "./path";
 
 export type { NumericSpec } from "./types";

@@ -1,6 +1,6 @@
 import type { EffectDefinition, EffectPass } from "@/effects/types";
 
-export const GAUSSIAN_BLUR_SHADER = "gaussian-blur";
+const GAUSSIAN_BLUR_SHADER = "gaussian-blur";
 
 const MAX_SINGLE_PASS_SIGMA = 10;
 const MAX_STEP = 4;
@@ -53,7 +53,7 @@ export function buildGaussianBlurPasses({
   return passes;
 }
 
-export const INTENSITY_TO_SIGMA_DIVISOR = 5;
+const INTENSITY_TO_SIGMA_DIVISOR = 5;
 
 export function intensityToSigma({
   intensity,

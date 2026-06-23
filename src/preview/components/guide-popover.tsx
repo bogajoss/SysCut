@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { LazyMotion, m, domAnimation, AnimatePresence } from "motion/react";
 import { GUIDE_REGISTRY, getGuideById } from "@/guides";
 import { usePreviewStore } from "@/preview/preview-store";
 import {
@@ -16,7 +16,7 @@ export function GridPopover({ children }: { children: React.ReactNode }) {
   const activeGuide = usePreviewStore((state) => state.activeGuide);
   const toggleGuide = usePreviewStore((state) => state.toggleGuide);
   const activeGuideDef = getGuideById(activeGuide);
-  const options = activeGuideDef?.renderOptions?.();
+  const Options = activeGuideDef?.renderOptions;
 
   return (
     <Popover>
@@ -25,34 +25,39 @@ export function GridPopover({ children }: { children: React.ReactNode }) {
         <div className="flex flex-col gap-2 px-4">
           <Label>Guides</Label>
           <div className="grid grid-cols-3 gap-1">
-            {GUIDE_REGISTRY.map((guide) => (
-              <GridItem
-                key={guide.id}
-                label={guide.label}
-                preview={guide.renderPreview()}
-                isSelected={activeGuide === guide.id}
-                onClick={() => toggleGuide(guide.id)}
-              />
-            ))}
+            {GUIDE_REGISTRY.map((guide) => {
+              const Preview = guide.renderPreview;
+              return (
+                <GridItem
+                  key={guide.id}
+                  label={guide.label}
+                  preview={<Preview />}
+                  isSelected={activeGuide === guide.id}
+                  onClick={() => toggleGuide(guide.id)}
+                />
+              );
+            })}
           </div>
         </div>
-        <AnimatePresence>
-          {options && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{
-                height: { type: "spring", duration: 0.2, bounce: 0 },
-                opacity: { duration: 0.2 },
-              }}
-              className="overflow-hidden"
-            >
-              <Separator className="my-3" />
-              <div className="px-4">{options}</div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <LazyMotion features={domAnimation}>
+          <AnimatePresence>
+            {Options && (
+              <m.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{
+                  height: { type: "spring", duration: 0.2, bounce: 0 },
+                  opacity: { duration: 0.2 },
+                }}
+                className="overflow-hidden"
+              >
+                <Separator className="my-3" />
+                <div className="px-4"><Options /></div>
+              </m.div>
+            )}
+          </AnimatePresence>
+        </LazyMotion>
       </PopoverContent>
     </Popover>
   );

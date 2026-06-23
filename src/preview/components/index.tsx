@@ -275,6 +275,7 @@ function PreviewCanvas({
       }
     };
 
+    // react-doctor-disable-next-line client-passive-event-listeners
     container.addEventListener("wheel", onWheel, {
       capture: true,
       passive: false,

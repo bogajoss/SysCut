@@ -66,7 +66,7 @@ function pointsEqual({
   );
 }
 
-export function getSplitMaskStrokeSegment({
+function getSplitMaskStrokeSegment({
   resolvedParams,
   width,
   height,

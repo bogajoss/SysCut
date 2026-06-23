@@ -17,7 +17,7 @@ interface VideoSinkData {
   prefetchPromise: Promise<void> | null;
 }
 
-export class VideoCache {
+class VideoCache {
   private sinks = new Map<string, VideoSinkData>();
   private initPromises = new Map<string, Promise<void>>();
   private frameChain = new Map<string, Promise<unknown>>();

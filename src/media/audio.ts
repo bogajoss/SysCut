@@ -88,7 +88,7 @@ export interface AudibleElementCandidate {
   mediaAsset: MediaAsset | null;
 }
 
-export function collectAudibleCandidates({
+function collectAudibleCandidates({
   tracks,
   mediaAssets,
 }: {
@@ -715,7 +715,7 @@ function collectPeakRange({
   return peaks;
 }
 
-export function extractPeakRange({
+function extractPeakRange({
   buffer,
   count,
   startSample,
@@ -761,7 +761,7 @@ export function getSampleBucketRange({
   };
 }
 
-export function extractRmsBuckets({
+function extractRmsBuckets({
   buffer,
   buckets,
 }: {
@@ -784,7 +784,7 @@ export function extractRmsBuckets({
  * Channels are combined per-window before taking the max, so the measure
  * reflects total energy regardless of stereo layout.
  */
-export function extractRmsRange({
+function extractRmsRange({
   buffer,
   count,
   startSample,

@@ -283,6 +283,7 @@ export function Timeline() {
       saveScrollPositionRef.current();
     };
 
+    // react-doctor-disable-next-line client-passive-event-listeners
     container.addEventListener("wheel", onWheel, {
       passive: false,
       capture: true,

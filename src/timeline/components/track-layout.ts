@@ -9,7 +9,7 @@ export function getTrackHeight({ type }: { type: TrackType }): number {
   return TIMELINE_TRACK_HEIGHTS_PX[type];
 }
 
-export function getExpandedTrackHeight({
+function getExpandedTrackHeight({
   type,
   expandedLaneCount,
 }: {

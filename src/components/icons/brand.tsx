@@ -1,6 +1,6 @@
 import type { IconProps } from "./types";
 
-export function OcVercelIcon({ className }: IconProps) {
+function OcVercelIcon({ className }: IconProps) {
   return (
     <svg
       className={className}
@@ -11,6 +11,7 @@ export function OcVercelIcon({ className }: IconProps) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <title>Vercel</title>
+      {/* react-doctor-disable-next-line rendering-svg-precision */}
       <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" fill="currentColor" />
     </svg>
   );

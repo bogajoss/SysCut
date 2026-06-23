@@ -106,7 +106,7 @@ interface KeyframeIndicator {
   keyframes: SelectedKeyframeRef[];
 }
 
-export function buildKeyframeIndicator({
+function buildKeyframeIndicator({
   keyframe,
   trackId,
   elementId,
@@ -142,7 +142,7 @@ export function buildKeyframeIndicator({
   };
 }
 
-export function getKeyframeIndicators({
+function getKeyframeIndicators({
   keyframes,
   trackId,
   elementId,
@@ -189,7 +189,7 @@ export function getKeyframeIndicators({
   return Array.from(keyframesByTime.values()).sort((a, b) => a.time - b.time);
 }
 
-export function getDisplayShortcut({ action }: { action: TAction }) {
+function getDisplayShortcut({ action }: { action: TAction }) {
   const defaultShortcuts = getActionDefinition({ action }).defaultShortcuts;
   if (!defaultShortcuts?.length) {
     return "";

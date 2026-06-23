@@ -408,7 +408,7 @@ export function writeElementParamValue({
   return element;
 }
 
-export function buildElementParamValues({
+function buildElementParamValues({
   element,
 }: {
   element: TimelineElement;

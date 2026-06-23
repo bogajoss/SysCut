@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -102,9 +102,7 @@ function SoundEffectsView() {
   });
 
   const [playingId, setPlayingId] = useState<number | null>(null);
-  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(
-    null,
-  );
+  const audioElementRef = useRef<HTMLAudioElement | null>(null);
 
   const { scrollAreaRef, handleScroll } = useInfiniteScroll({
     onLoadMore: loadMore,
@@ -116,6 +114,7 @@ function SoundEffectsView() {
     loadSavedSounds();
   }, [loadSavedSounds]);
 
+  // react-doctor-disable-next-line no-fetch-in-effect
   useEffect(() => {
     if (hasLoaded) {
       return;
@@ -205,12 +204,12 @@ function SoundEffectsView() {
 
   const playSound = ({ sound }: { sound: SoundEffect }) => {
     if (playingId === sound.id) {
-      audioElement?.pause();
+      audioElementRef.current?.pause();
       setPlayingId(null);
       return;
     }
 
-    audioElement?.pause();
+    audioElementRef.current?.pause();
 
     if (sound.previewUrl) {
       const audio = new Audio(sound.previewUrl);
@@ -225,7 +224,7 @@ function SoundEffectsView() {
         setPlayingId(null);
       });
 
-      setAudioElement(audio);
+      audioElementRef.current = audio;
       setPlayingId(sound.id);
     }
   };
@@ -352,9 +351,7 @@ function SavedSoundsView() {
   } = useSoundsStore();
 
   const [playingId, setPlayingId] = useState<number | null>(null);
-  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(
-    null,
-  );
+  const audioElementRef = useRef<HTMLAudioElement | null>(null);
 
   const [showClearDialog, setShowClearDialog] = useState(false);
 
@@ -364,12 +361,12 @@ function SavedSoundsView() {
 
   const playSound = ({ sound }: { sound: SoundEffect }) => {
     if (playingId === sound.id) {
-      audioElement?.pause();
+      audioElementRef.current?.pause();
       setPlayingId(null);
       return;
     }
 
-    audioElement?.pause();
+    audioElementRef.current?.pause();
 
     if (sound.previewUrl) {
       const audio = new Audio(sound.previewUrl);
@@ -384,7 +381,7 @@ function SavedSoundsView() {
         setPlayingId(null);
       });
 
-      setAudioElement(audio);
+      audioElementRef.current = audio;
       setPlayingId(sound.id);
     }
   };

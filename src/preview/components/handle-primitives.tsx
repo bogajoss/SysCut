@@ -4,13 +4,14 @@ import { cn } from "@/utils/ui";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { IconSvgElement } from "@hugeicons/react";
 
-export const HANDLE_SIZE = 10;
-export const HANDLE_HIT_AREA_SIZE = 18;
-export const ICON_HANDLE_RADIUS = 10;
-export const EDGE_HANDLE_THIN_SIZE = 6;
-export const EDGE_HANDLE_THICK_SIZE = 14;
-export const LINE_HIT_AREA_SIZE = 48;
+const HANDLE_SIZE = 10;
+const HANDLE_HIT_AREA_SIZE = 18;
+const ICON_HANDLE_RADIUS = 10;
+const EDGE_HANDLE_THIN_SIZE = 6;
+const EDGE_HANDLE_THICK_SIZE = 14;
+const LINE_HIT_AREA_SIZE = 48;
 
+// react-doctor-disable-next-line only-export-components
 export function getResizeCursor({ angleDeg }: { angleDeg: number }): string {
   const normalized = ((angleDeg % 180) + 180) % 180;
   if (normalized < 22.5 || normalized >= 157.5) return "ew-resize";
@@ -19,7 +20,7 @@ export function getResizeCursor({ angleDeg }: { angleDeg: number }): string {
   return "nesw-resize";
 }
 
-export function HandleButton({
+function HandleButton({
   screen,
   cursor,
   hitAreaSize,

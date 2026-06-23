@@ -647,6 +647,6 @@ export const parseGradient = ({
   return getAst();
 };
 
-export const GradientParser = {
+const GradientParser = {
   parse: parseGradient,
 };

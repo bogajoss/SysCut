@@ -11,7 +11,7 @@ export function getSourceSpanAtClipTime({
   return Math.max(0, getSourceTimeAtClipTime({ clipTime, retime }));
 }
 
-export function splitRetimeAtClipTime({
+function splitRetimeAtClipTime({
   retime,
 }: {
   retime?: RetimeConfig;
@@ -23,7 +23,7 @@ export function splitRetimeAtClipTime({
   return { left: retime, right: retime };
 }
 
-export function adjustRetimeForTrimChange({
+function adjustRetimeForTrimChange({
   retime,
 }: {
   retime?: RetimeConfig;

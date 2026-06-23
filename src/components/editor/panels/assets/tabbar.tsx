@@ -31,12 +31,13 @@ export function TabBar() {
     setShowBottomFade(scrollTop < scrollHeight - clientHeight - 1);
   }, []);
 
+  // react-doctor-disable-next-line advanced-event-handler-refs
   useEffect(() => {
     const element = scrollRef.current;
     if (!element) return;
 
     checkScrollPosition();
-    element.addEventListener("scroll", checkScrollPosition);
+    element.addEventListener("scroll", checkScrollPosition, { passive: true });
 
     const resizeObserver = new ResizeObserver(checkScrollPosition);
     resizeObserver.observe(element);

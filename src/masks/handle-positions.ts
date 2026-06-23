@@ -30,7 +30,7 @@ const CURSOR = {
  *
  * So rotation=0 → normal points right → line runs vertically.
  */
-export function getLineMaskLinePoints({
+function getLineMaskLinePoints({
   centerX,
   centerY,
   rotation,
@@ -434,7 +434,7 @@ export function getBoxMaskRectOverlay({
   };
 }
 
-export function getBoxMaskShapeOverlay({
+function getBoxMaskShapeOverlay({
   centerX,
   centerY,
   width,

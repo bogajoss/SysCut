@@ -235,6 +235,7 @@ function EditableProjectName() {
     <input
       ref={inputRef}
       type="text"
+      aria-label="Project name"
       defaultValue={projectName}
       readOnly={!isEditing}
       onClick={startEditing}

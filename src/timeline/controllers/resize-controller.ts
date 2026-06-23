@@ -69,7 +69,7 @@ export interface ResizeConfigRef {
 
 // --- Pure helpers ---
 
-export function buildResizeMembers({
+function buildResizeMembers({
   tracks,
   selectedElements,
 }: {

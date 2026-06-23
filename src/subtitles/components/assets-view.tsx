@@ -276,6 +276,7 @@ export function Captions() {
       <input
         ref={fileInputRef}
         type="file"
+        aria-label="Upload Subtitles File"
         accept=".srt,.ass"
         className="hidden"
         onChange={(event) => void handleFileChange({ event })}

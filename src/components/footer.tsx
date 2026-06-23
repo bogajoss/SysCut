@@ -68,7 +68,7 @@ export function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col items-start justify-between gap-4 pt-2 md:flex-row">
           <div className="text-muted-foreground flex items-center gap-4 text-sm">
-            <span>
+            <span suppressHydrationWarning>
               © {new Date().getFullYear()} {t.site.brand.title},{" "}
               {t.home.footer.allRightsReserved}
             </span>

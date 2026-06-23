@@ -33,7 +33,7 @@ function isFreeformPathPoint(value: unknown): value is FreeformPathPoint {
   );
 }
 
-export function parseFreeformPath({
+function parseFreeformPath({
   path,
 }: {
   path: string;
@@ -50,7 +50,7 @@ export function parseFreeformPath({
   }
 }
 
-export function serializeFreeformPath({
+function serializeFreeformPath({
   points,
 }: {
   points: FreeformPathPoint[];
@@ -100,7 +100,7 @@ function rotatePoint({
   };
 }
 
-export function getFreeformCenterCanvasPoint({
+function getFreeformCenterCanvasPoint({
   centerX,
   centerY,
   bounds,
@@ -115,7 +115,7 @@ export function getFreeformCenterCanvasPoint({
   };
 }
 
-export function freeformLocalPointToCanvas({
+function freeformLocalPointToCanvas({
   point,
   centerX,
   centerY,

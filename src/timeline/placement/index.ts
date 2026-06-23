@@ -10,7 +10,6 @@ export {
 export {
   MAIN_TRACK_NAME,
   enforceMainTrackStart,
-  getEarliestMainTrackElement,
 } from "./main-track";
 export { resolveTrackPlacement } from "./resolve";
 export { buildEmptyTrack } from "./track-factory";

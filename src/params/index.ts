@@ -123,19 +123,19 @@ function createLeafChannelLayout<TValue extends ParamValue>({
   };
 }
 
-export const NUMBER_CHANNEL_LAYOUT: LeafChannelLayout<number> =
+const NUMBER_CHANNEL_LAYOUT: LeafChannelLayout<number> =
   createLeafChannelLayout<number>({
     valueKind: "scalar",
     defaultInterpolation: "linear",
   });
 
-export const BOOLEAN_CHANNEL_LAYOUT: LeafChannelLayout<boolean> =
+const BOOLEAN_CHANNEL_LAYOUT: LeafChannelLayout<boolean> =
   createLeafChannelLayout<boolean>({
     valueKind: "discrete",
     defaultInterpolation: "hold",
   });
 
-export const STRING_CHANNEL_LAYOUT: LeafChannelLayout<string> =
+const STRING_CHANNEL_LAYOUT: LeafChannelLayout<string> =
   createLeafChannelLayout<string>({
     valueKind: "discrete",
     defaultInterpolation: "hold",
@@ -149,7 +149,7 @@ const colorComponent = (
   defaultInterpolation: "linear",
 });
 
-export const COLOR_CHANNEL_LAYOUT: CompositeChannelLayout<string, LinearRgba> =
+const COLOR_CHANNEL_LAYOUT: CompositeChannelLayout<string, LinearRgba> =
   {
     kind: "composite",
     components: [
@@ -266,7 +266,7 @@ export function getParamChannelLayout({
   }
 }
 
-export function getParamValueKind({
+function getParamValueKind({
   param,
 }: {
   param: ParamDefinition;

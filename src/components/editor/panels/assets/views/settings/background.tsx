@@ -264,6 +264,7 @@ export function BackgroundContent() {
           key={blur.value}
           blur={blur}
           isSelected={isBlurBackground && currentBlurIntensity === blur.value}
+          // react-doctor-disable-next-line no-inline-prop-on-memo-component
           onSelect={() => handleBlurSelect(blur.value)}
         />
       )),

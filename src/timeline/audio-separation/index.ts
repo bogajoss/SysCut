@@ -11,7 +11,7 @@ import type {
 
 type MediaAudioState = Pick<MediaAsset, "hasAudio">;
 
-export function isSourceAudioEnabled({
+function isSourceAudioEnabled({
   element,
 }: {
   element: VideoElement;
@@ -39,7 +39,7 @@ export function canExtractSourceAudio(
   );
 }
 
-export function canRecoverSourceAudio(
+function canRecoverSourceAudio(
   element: TimelineElement,
 ): element is VideoElement {
   return element.type === "video" && isSourceAudioSeparated({ element });

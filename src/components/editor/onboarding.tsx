@@ -19,91 +19,87 @@ export function Onboarding() {
   const isOpen = !hasSeenOnboarding;
 
   const handleNext = () => {
-    setStep(step + 1);
+    setStep((prev) => prev + 1);
   };
 
   const handleClose = () => {
     setHasSeenOnboarding({ value: true });
   };
 
-  const getStepTitle = () => {
-    switch (step) {
-      case 0:
-        return t.editor.onboarding.steps.welcome.title;
-      case 1:
-        return t.editor.onboarding.steps.earlyBeta.title;
-      case 2:
-        return t.editor.onboarding.steps.testing.title;
-      default:
-        return t.editor.onboarding.steps.fallback;
-    }
-  };
+  let stepTitle = "";
+  let stepContent = null;
 
-  const renderStepContent = () => {
-    switch (step) {
-      case 0:
-        return (
-          <div className="space-y-5">
-            <div className="space-y-3">
-              <Title title={t.editor.onboarding.steps.welcome.title} />
-              <Description
-                description={t.editor.onboarding.steps.welcome.description}
-              />
-            </div>
-            <NextButton onClick={handleNext}>
-              {t.editor.onboarding.next}
-            </NextButton>
+  switch (step) {
+    case 0:
+      stepTitle = t.editor.onboarding.steps.welcome.title;
+      stepContent = (
+        <div className="space-y-5">
+          <div className="space-y-3">
+            <Title title={t.editor.onboarding.steps.welcome.title} />
+            <Description
+              description={t.editor.onboarding.steps.welcome.description}
+            />
           </div>
-        );
-      case 1:
-        return (
-          <div className="space-y-5">
-            <div className="space-y-3">
-              <Title title={getStepTitle()} />
-              <Description
-                description={t.editor.onboarding.steps.earlyBeta.description1}
-              />
-              <Description
-                description={t.editor.onboarding.steps.earlyBeta.description2}
-              />
-              <Description
-                description={t.editor.onboarding.steps.earlyBeta.description3}
-              />
-            </div>
-            <NextButton onClick={handleNext}>
-              {t.editor.onboarding.next}
-            </NextButton>
+          <NextButton onClick={handleNext}>
+            {t.editor.onboarding.next}
+          </NextButton>
+        </div>
+      );
+      break;
+    case 1:
+      stepTitle = t.editor.onboarding.steps.earlyBeta.title;
+      stepContent = (
+        <div className="space-y-5">
+          <div className="space-y-3">
+            <Title title={t.editor.onboarding.steps.earlyBeta.title} />
+            <Description
+              description={t.editor.onboarding.steps.earlyBeta.description1}
+            />
+            <Description
+              description={t.editor.onboarding.steps.earlyBeta.description2}
+            />
+            <Description
+              description={t.editor.onboarding.steps.earlyBeta.description3}
+            />
           </div>
-        );
-      case 2:
-        return (
-          <div className="space-y-5">
-            <div className="space-y-3">
-              <Title title={getStepTitle()} />
-              <Description
-                description={t.editor.onboarding.steps.testing.description.replace(
-                  "{discord}",
-                  t.site.social.discord,
-                )}
-              />
-            </div>
-            <NextButton onClick={handleClose}>
-              {t.editor.onboarding.finish}
-            </NextButton>
+          <NextButton onClick={handleNext}>
+            {t.editor.onboarding.next}
+          </NextButton>
+        </div>
+      );
+      break;
+    case 2:
+      stepTitle = t.editor.onboarding.steps.testing.title;
+      stepContent = (
+        <div className="space-y-5">
+          <div className="space-y-3">
+            <Title title={stepTitle} />
+            <Description
+              description={t.editor.onboarding.steps.testing.description.replace(
+                "{discord}",
+                t.site.social.discord,
+              )}
+            />
           </div>
-        );
-      default:
-        return null;
-    }
-  };
+          <NextButton onClick={handleClose}>
+            {t.editor.onboarding.finish}
+          </NextButton>
+        </div>
+      );
+      break;
+    default:
+      stepTitle = t.editor.onboarding.steps.fallback;
+      stepContent = null;
+      break;
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogTitle>
-          <span className="sr-only">{getStepTitle()}</span>
+          <span className="sr-only">{stepTitle}</span>
         </DialogTitle>
-        <DialogBody>{renderStepContent()}</DialogBody>
+        <DialogBody>{stepContent}</DialogBody>
       </DialogContent>
     </Dialog>
   );

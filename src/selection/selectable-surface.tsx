@@ -228,9 +228,9 @@ export function SelectableSurface({
     [clearSelectionState],
   );
 
-  const [prevOrderedIds, setPrevOrderedIds] = useState(orderedIds);
-  if (prevOrderedIds !== orderedIds) {
-    setPrevOrderedIds(orderedIds);
+  const prevOrderedIdsRef = useRef(orderedIds);
+  if (prevOrderedIdsRef.current !== orderedIds) {
+    prevOrderedIdsRef.current = orderedIds;
     setSelectionState((state) =>
       pruneSelection({
         state,
@@ -239,30 +239,25 @@ export function SelectableSurface({
     );
   }
 
-  const [prevRevealId, setPrevRevealId] = useState(revealId);
-  if (prevRevealId !== revealId) {
-    setPrevRevealId(revealId);
-    if (revealId) {
-      setHighlightedId(revealId);
-    }
-  }
-
-  // Removed useEffect to prevent data pass to parent bug
+  const onRevealCompleteRef = useRef(onRevealComplete);
+  onRevealCompleteRef.current = onRevealComplete;
 
   useEffect(() => {
     if (!revealId) {
       return;
     }
+    
+    setHighlightedId(revealId);
 
     getItemElement(revealId)?.scrollIntoView({ block: "center" });
 
     const timer = setTimeout(() => {
       setHighlightedId(null);
-      onRevealComplete?.();
+      onRevealCompleteRef.current?.();
     }, 1500);
 
     return () => clearTimeout(timer);
-  }, [getItemElement, onRevealComplete, revealId]);
+  }, [getItemElement, revealId]);
 
   const isBoxSelecting = isSelecting;
 
@@ -295,9 +290,7 @@ export function SelectableSurface({
       <div
         ref={containerRef}
         className={cn("relative min-h-full", className)}
-        role="listbox"
         aria-label={ariaLabel}
-        aria-multiselectable="true"
         tabIndex={0}
         onMouseDown={handleMouseDown}
         onClick={handleBackgroundClick}

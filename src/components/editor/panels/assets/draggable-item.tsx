@@ -33,6 +33,8 @@ export interface DraggableItemProps {
   };
 }
 
+const EMPTY_OPTIONS = {};
+
 export function DraggableItem({
   name,
   preview,
@@ -43,7 +45,7 @@ export function DraggableItem({
   className = "",
   containerClassName,
   variant = "card",
-  options = {},
+  options = EMPTY_OPTIONS,
 }: DraggableItemProps) {
   const {
     showPlusOnDrag = true,

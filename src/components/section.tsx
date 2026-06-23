@@ -1,4 +1,4 @@
-import { createContext, use, useEffect, useState } from "react";
+import { createContext, use, useCallback, useEffect, useMemo, useState } from "react";
 import { cn } from "@/utils/ui";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowDownIcon } from "@hugeicons/core-free-icons";
@@ -58,14 +58,21 @@ export function Section({
     };
   }, [sectionKey]);
 
-  const toggle = () => {
-    const next = !isOpen;
-    setIsOpen(next);
-    if (sectionKey) sectionExpandedCache.set(sectionKey, next);
-  };
+  const toggle = useCallback(() => {
+    setIsOpen((prev) => {
+      const next = !prev;
+      if (sectionKey) sectionExpandedCache.set(sectionKey, next);
+      return next;
+    });
+  }, [sectionKey]);
+
+  const contextValue = useMemo(
+    () => ({ isOpen, toggle, collapsible }),
+    [isOpen, toggle, collapsible],
+  );
 
   return (
-    <SectionCtx.Provider value={{ isOpen, toggle, collapsible }}>
+    <SectionCtx.Provider value={contextValue}>
       <div
         className={cn(
           "flex flex-col",

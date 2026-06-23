@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { LazyMotion, domAnimation, m } from "motion/react";
 import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
@@ -139,27 +139,28 @@ export function Header() {
             />
             <nav className="flex flex-col gap-3 px-6 pt-[5rem]">
               {links.map((link, index) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ scale: 0.98, opacity: 0 }}
-                  animate={{
-                    scale: isMenuOpen ? 1 : 0.98,
-                    opacity: isMenuOpen ? 1 : 0,
-                  }}
-                  transition={{
-                    duration: 0.4,
-                    delay: isMenuOpen ? index * 0.1 : 0,
-                    ease: [0.25, 0.46, 0.45, 0.94],
-                  }}
-                >
-                  <Link
-                    href={link.href}
-                    className="text-2xl font-semibold"
-                    onClick={() => setIsMenuOpen(false)}
+                <LazyMotion features={domAnimation} key={link.href}>
+                  <m.div
+                    initial={{ scale: 0.98, opacity: 0 }}
+                    animate={{
+                      scale: isMenuOpen ? 1 : 0.98,
+                      opacity: isMenuOpen ? 1 : 0,
+                    }}
+                    transition={{
+                      duration: 0.4,
+                      delay: isMenuOpen ? index * 0.1 : 0,
+                      ease: [0.25, 0.46, 0.45, 0.94],
+                    }}
                   >
-                    {link.label}
-                  </Link>
-                </motion.div>
+                    <Link
+                      href={link.href}
+                      className="text-2xl font-semibold"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  </m.div>
+                </LazyMotion>
               ))}
             </nav>
             <div className="absolute right-8 bottom-8 flex items-center gap-3">

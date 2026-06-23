@@ -69,7 +69,6 @@
     "typescript": "^5.9.3",
     "vinext": "^0.1.7",
     "vite": "^8.0.16",
-    "vite-plugin-wasm": "^3.6.0",
     "wrangler": "^4.103.0"
   },
   "type": "module"

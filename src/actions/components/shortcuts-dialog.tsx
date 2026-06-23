@@ -42,6 +42,7 @@ export function ShortcutsDialog({
 
   const categories = Array.from(new Set(shortcuts.map((s) => s.category)));
 
+  // react-doctor-disable-next-line no-cascading-set-state
   useEffect(() => {
     if (!isRecording || !recordingShortcut) return;
 

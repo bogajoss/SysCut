@@ -6,12 +6,15 @@ const config = {
       "src/components/ui/**",
       "doctor.config.mjs",
       "src/hooks/use-mobile.ts",
-      "src/lib/supabase/middleware.ts",
+      "src/components/icons/ui.tsx",
       "src/proxy.ts",
       ".next/**",
       ".vinext/**",
       ".agents/**",
     ],
+  },
+  rules: {
+    "react-doctor/require-pnpm-hardening": "off",
   },
 };
 

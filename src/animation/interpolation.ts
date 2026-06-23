@@ -243,7 +243,7 @@ export function getScalarSegmentInterpolation({
   return segment === "bezier" ? "bezier" : "linear";
 }
 
-export function getScalarChannelValueAtTime({
+function getScalarChannelValueAtTime({
   channel,
   time,
   fallbackValue,
@@ -353,7 +353,7 @@ export function getScalarChannelValueAtTime({
   return lastKey.value;
 }
 
-export function getDiscreteChannelValueAtTime({
+function getDiscreteChannelValueAtTime({
   channel,
   time,
   fallbackValue,

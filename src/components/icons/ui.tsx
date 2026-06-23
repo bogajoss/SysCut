@@ -27,7 +27,7 @@ export function OcVideoIcon({ className = "", size = 32 }: IconProps) {
   );
 }
 
-export function OcCheckerboardIcon({ className = "", size = 32 }: IconProps) {
+function OcCheckerboardIcon({ className = "", size = 32 }: IconProps) {
   return (
     <svg
       width={size}
@@ -55,7 +55,7 @@ export function OcCheckerboardIcon({ className = "", size = 32 }: IconProps) {
   );
 }
 
-export function OcSlidersVerticalIcon({
+function OcSlidersVerticalIcon({
   className = "",
   size = 32,
 }: IconProps) {
@@ -97,7 +97,7 @@ export function OcSlidersVerticalIcon({
   );
 }
 
-export function OcSocialIcon({ className = "", size = 32 }: IconProps) {
+function OcSocialIcon({ className = "", size = 32 }: IconProps) {
   return (
     <svg
       width={Math.round(size * (38 / 24))}
@@ -184,7 +184,7 @@ export function OcTextHeightIcon({ className = "", size = 32 }: IconProps) {
   );
 }
 
-export function OcFontIcon({ className = "", size = 32 }: IconProps) {
+function OcFontIcon({ className = "", size = 32 }: IconProps) {
   return (
     <svg
       width={size}

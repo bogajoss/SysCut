@@ -120,6 +120,7 @@ export function EditableTimecode({
       <input
         ref={inputRef}
         type="text"
+        aria-label="Edit timecode"
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}

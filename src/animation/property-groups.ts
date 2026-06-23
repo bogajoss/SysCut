@@ -11,7 +11,7 @@ export interface GroupKeyframeRef {
   keyframeId: string;
 }
 
-export function getGroupKeyframesAtTime({
+function getGroupKeyframesAtTime({
   animations,
   group,
   time,
@@ -26,7 +26,7 @@ export function getGroupKeyframesAtTime({
   });
 }
 
-export function hasGroupKeyframeAtTime({
+function hasGroupKeyframeAtTime({
   animations,
   group,
   time,

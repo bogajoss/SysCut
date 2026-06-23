@@ -60,7 +60,7 @@ export function buildDefaultGraphicInstance({
   };
 }
 
-export function resolveGraphicParams({
+function resolveGraphicParams({
   definition,
   params,
 }: {

@@ -98,12 +98,14 @@ export function MediaView() {
             onProgress: (progress: { progress: number }) =>
               setProgress(progress.progress),
           });
-          for (const asset of processedAssets) {
-            await editor.media.addMediaAsset({
-              projectId: activeProject.metadata.id,
-              asset,
-            });
-          }
+          await Promise.all(
+            processedAssets.map((asset) =>
+              editor.media.addMediaAsset({
+                projectId: activeProject.metadata.id,
+                asset,
+              }),
+            ),
+          );
           return {
             uploadedCount: processedAssets.length,
             assetNames: processedAssets.map((asset) => asset.name),
