@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
   output: "standalone",
+  allowedDevOrigins: [
+    "localhost",
+    "127.0.0.1",
+    ".github.dev",
+    ".app.github.dev",
+  ],
   images: {
     remotePatterns: [
       {

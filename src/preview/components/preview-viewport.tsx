@@ -3,7 +3,7 @@
 import {
   createContext,
   useCallback,
-  useContext,
+  use,
   useEffect,
   useMemo,
   useRef,
@@ -589,7 +589,7 @@ export function usePreviewViewportState({
 }
 
 export function usePreviewViewport() {
-  const context = useContext(PreviewViewportContext);
+  const context = use(PreviewViewportContext);
   if (!context) {
     throw new Error(
       "usePreviewViewport must be used within PreviewViewportProvider",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useMemo } from "react";
 import { usePreviewViewport } from "@/preview/components/preview-viewport";
 import { useEditor } from "@/editor/use-editor";
 import type { TextElement } from "@/timeline";
@@ -104,16 +104,58 @@ export function TextEditOverlay({
     ? (bg.paddingY ?? DEFAULTS.text.background.paddingY) * fontSizeRatio
     : 0;
 
+  const containerStyle = useMemo<React.CSSProperties>(
+    () => ({
+      left: posX,
+      top: posY,
+      transform: `translate(-50%, -50%) scale(${transform.scaleX * displayScaleX}, ${transform.scaleY * displayScaleX}) rotate(${transform.rotate}deg)`,
+      transformOrigin: "center center",
+    }),
+    [posX, posY, transform.scaleX, transform.scaleY, transform.rotate, displayScaleX]
+  );
+
+  const inputStyle = useMemo<React.CSSProperties>(
+    () => ({
+      fontSize: resolvedTextLayout.scaledFontSize,
+      fontFamily: textParams.fontFamily,
+      fontWeight: textParams.fontWeight === "bold" ? "bold" : "normal",
+      fontStyle: textParams.fontStyle === "italic" ? "italic" : "normal",
+      textAlign: textParams.textAlign,
+      letterSpacing: `${canvasLetterSpacing}px`,
+      lineHeight,
+      color: "transparent",
+      caretColor:
+        typeof element.params.color === "string"
+          ? element.params.color
+          : "#ffffff",
+      backgroundColor: shouldShowBackground ? bg.color : "transparent",
+      minHeight: lineHeightPx,
+      textDecoration: textParams.textDecoration ?? "none",
+      padding: shouldShowBackground
+        ? `${canvasPaddingY}px ${canvasPaddingX}px`
+        : 0,
+      minWidth: 1,
+    }),
+    [
+      resolvedTextLayout.scaledFontSize,
+      textParams.fontFamily,
+      textParams.fontWeight,
+      textParams.fontStyle,
+      textParams.textAlign,
+      canvasLetterSpacing,
+      lineHeight,
+      element.params.color,
+      shouldShowBackground,
+      bg.color,
+      lineHeightPx,
+      textParams.textDecoration,
+      canvasPaddingY,
+      canvasPaddingX,
+    ]
+  );
+
   return (
-    <div
-      className="absolute"
-      style={{
-        left: posX,
-        top: posY,
-        transform: `translate(-50%, -50%) scale(${transform.scaleX * displayScaleX}, ${transform.scaleY * displayScaleX}) rotate(${transform.rotate}deg)`,
-        transformOrigin: "center center",
-      }}
-    >
+    <div className="absolute origin-center" style={containerStyle}>
       <div
         ref={divRef}
         contentEditable
@@ -122,27 +164,7 @@ export function TextEditOverlay({
         role="textbox"
         aria-label="Edit text"
         className="cursor-text select-text outline-none whitespace-pre"
-        style={{
-          fontSize: resolvedTextLayout.scaledFontSize,
-          fontFamily: textParams.fontFamily,
-          fontWeight: textParams.fontWeight === "bold" ? "bold" : "normal",
-          fontStyle: textParams.fontStyle === "italic" ? "italic" : "normal",
-          textAlign: textParams.textAlign,
-          letterSpacing: `${canvasLetterSpacing}px`,
-          lineHeight,
-          color: "transparent",
-          caretColor:
-            typeof element.params.color === "string"
-              ? element.params.color
-              : "#ffffff",
-          backgroundColor: shouldShowBackground ? bg.color : "transparent",
-          minHeight: lineHeightPx,
-          textDecoration: textParams.textDecoration ?? "none",
-          padding: shouldShowBackground
-            ? `${canvasPaddingY}px ${canvasPaddingX}px`
-            : 0,
-          minWidth: 1,
-        }}
+        style={inputStyle}
         onInput={handleInput}
         onBlur={onCommit}
         onKeyDown={(event) => handleKeyDown({ event })}

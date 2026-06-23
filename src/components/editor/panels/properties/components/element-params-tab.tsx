@@ -39,19 +39,22 @@ export function ElementParamsTab({
     <Section sectionKey={`${element.id}:${sectionKey}`}>
       <SectionContent className="pt-4">
         <SectionFields>
-          {params
-            .filter((param) => isVisible({ param, values: baseValues }))
-            .map((param) => (
-              <ElementParamField
-                key={param.key}
-                element={element}
-                trackId={trackId}
-                param={param}
-                baseValue={baseValues[param.key] ?? param.default}
-                localTime={localTime}
-                isPlayheadWithinElementRange={isPlayheadWithinElementRange}
-              />
-            ))}
+          {params.reduce<React.ReactNode[]>((acc, param) => {
+            if (isVisible({ param, values: baseValues })) {
+              acc.push(
+                <ElementParamField
+                  key={param.key}
+                  element={element}
+                  trackId={trackId}
+                  param={param}
+                  baseValue={baseValues[param.key] ?? param.default}
+                  localTime={localTime}
+                  isPlayheadWithinElementRange={isPlayheadWithinElementRange}
+                />
+              );
+            }
+            return acc;
+          }, [])}
         </SectionFields>
       </SectionContent>
     </Section>

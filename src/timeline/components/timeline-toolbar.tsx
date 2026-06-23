@@ -266,7 +266,7 @@ function SceneSelector() {
     <div>
       <SplitButton className="border-foreground/10 border">
         <SplitButtonLeft>
-          {currentScene?.name || t.editor.timeline.toolbar.noScene}
+          {currentScene?.name === "Main scene" ? t.editor.timeline.toolbar.mainScene : (currentScene?.name || t.editor.timeline.toolbar.noScene)}
         </SplitButtonLeft>
         <SplitButtonSeparator />
         <ScenesView>

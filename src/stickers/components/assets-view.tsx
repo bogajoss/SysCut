@@ -462,8 +462,7 @@ function StickerItem({
         dragData={dragData}
         onAddToTimeline={handleAdd}
         aspectRatio={1}
-        shouldShowLabel={false}
-        isRounded
+        options={{ showLabel: false, rounded: true }}
         variant="card"
         containerClassName={containerClassName ?? "w-full"}
       />

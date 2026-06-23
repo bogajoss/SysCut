@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import { createContext, use } from "react";
 
 interface SelectionContextValue {
   selectedIds: string[];
@@ -33,7 +33,7 @@ export const SelectionContext = createContext<SelectionContextValue | null>(
 );
 
 export function useSelectionContext() {
-  const context = useContext(SelectionContext);
+  const context = use(SelectionContext);
 
   if (!context) {
     throw new Error(

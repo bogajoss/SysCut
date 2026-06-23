@@ -121,18 +121,21 @@ export function ShortcutsDialog({
                   {category}
                 </h3>
                 <div className="flex flex-col gap-1">
-                  {shortcuts
-                    .filter((shortcut) => shortcut.category === category)
-                    .map((shortcut) => (
-                      <ShortcutItem
-                        key={shortcut.action}
-                        shortcut={shortcut}
-                        isRecording={
-                          shortcut.action === recordingShortcut?.action
-                        }
-                        onStartRecording={() => handleStartRecording(shortcut)}
-                      />
-                    ))}
+                  {shortcuts.reduce<React.ReactNode[]>((acc, shortcut) => {
+                    if (shortcut.category === category) {
+                      acc.push(
+                        <ShortcutItem
+                          key={shortcut.action}
+                          shortcut={shortcut}
+                          isRecording={
+                            shortcut.action === recordingShortcut?.action
+                          }
+                          onStartRecording={() => handleStartRecording(shortcut)}
+                        />
+                      );
+                    }
+                    return acc;
+                  }, [])}
                 </div>
               </div>
             ))}

@@ -91,7 +91,7 @@ function EffectItem({ effect }: { effect: EffectDefinition }) {
       }}
       onAddToTimeline={handleAddToTimeline}
       aspectRatio={1}
-      isRounded
+      options={{ rounded: true }}
       variant="card"
       containerClassName="w-full"
     />

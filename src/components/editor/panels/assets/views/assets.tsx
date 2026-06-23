@@ -293,12 +293,11 @@ function MediaAssetDraggable({
           targetElementTypes: [...MASKABLE_ELEMENT_TYPES],
         }),
       }}
-      shouldShowPlusOnDrag={false}
+      options={{ showPlusOnDrag: false, rounded: isRounded }}
       onAddToTimeline={({ currentTime }) =>
         addElementAtTime({ asset: item, startTime: currentTime })
       }
       variant={variant}
-      isRounded={isRounded}
     />
   );
 }

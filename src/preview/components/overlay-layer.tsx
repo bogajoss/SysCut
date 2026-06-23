@@ -162,7 +162,7 @@ export function PreviewOverlayLayer({
           return null;
         }
 
-        const sortedAnchorInstances = [...anchorInstances].sort(
+        const sortedAnchorInstances = anchorInstances.toSorted(
           (left, right) =>
             (left.mount.kind === "hud" ? (left.mount.order ?? 0) : 0) -
             (right.mount.kind === "hud" ? (right.mount.order ?? 0) : 0),

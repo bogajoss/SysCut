@@ -24,11 +24,13 @@ export interface DraggableItemProps {
   aspectRatio?: number;
   className?: string;
   containerClassName?: string;
-  shouldShowPlusOnDrag?: boolean;
-  shouldShowLabel?: boolean;
-  isRounded?: boolean;
   variant?: "card" | "compact";
-  isDraggable?: boolean;
+  options?: {
+    showPlusOnDrag?: boolean;
+    showLabel?: boolean;
+    rounded?: boolean;
+    draggable?: boolean;
+  };
 }
 
 export function DraggableItem({
@@ -40,12 +42,15 @@ export function DraggableItem({
   aspectRatio = 16 / 9,
   className = "",
   containerClassName,
-  shouldShowPlusOnDrag = true,
-  shouldShowLabel = true,
-  isRounded = true,
   variant = "card",
-  isDraggable = true,
+  options = {},
 }: DraggableItemProps) {
+  const {
+    showPlusOnDrag = true,
+    showLabel = true,
+    rounded = true,
+    draggable = true,
+  } = options;
   const [isDragging, setIsDragging] = useState(false);
   const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
   const dragRef = useRef<HTMLDivElement>(null);
@@ -109,22 +114,22 @@ export function DraggableItem({
               ratio={aspectRatio}
               className={cn(
                 "bg-accent relative overflow-hidden",
-                isRounded && "rounded-sm",
-                isDraggable && "[&::-webkit-drag-ghost]:opacity-0",
+                rounded && "rounded-sm",
+                draggable && "[&::-webkit-drag-ghost]:opacity-0",
               )}
-              draggable={isDraggable}
-              onDragStart={isDraggable ? handleDragStart : undefined}
-              onDragEnd={isDraggable ? handleDragEnd : undefined}
+              draggable={draggable}
+              onDragStart={draggable ? handleDragStart : undefined}
+              onDragEnd={draggable ? handleDragEnd : undefined}
             >
               {preview}
-              {!isDragging && (
+              {!isDragging && showPlusOnDrag && (
                 <PlusButton
                   className="opacity-0 group-hover:opacity-100"
                   onClick={handleAddToTimeline}
                 />
               )}
             </AspectRatio>
-            {shouldShowLabel && (
+            {showLabel && (
               <span
                 className="text-muted-foreground w-full truncate text-left text-[0.7rem]"
                 title={name}
@@ -148,12 +153,12 @@ export function DraggableItem({
             type="button"
             className={cn(
               "flex h-8 w-full cursor-default items-center gap-3 px-1 outline-none",
-              isDraggable && "[&::-webkit-drag-ghost]:opacity-0",
+              draggable && "[&::-webkit-drag-ghost]:opacity-0",
               className,
             )}
-            draggable={isDraggable}
-            onDragStart={isDraggable ? handleDragStart : undefined}
-            onDragEnd={isDraggable ? handleDragEnd : undefined}
+            draggable={draggable}
+            onDragStart={draggable ? handleDragStart : undefined}
+            onDragEnd={draggable ? handleDragEnd : undefined}
           >
             <div className="size-6 shrink-0 overflow-hidden rounded-sm">
               {preview}
@@ -165,7 +170,7 @@ export function DraggableItem({
         </div>
       )}
 
-      {isDraggable &&
+      {draggable &&
         isDragging &&
         typeof document !== "undefined" &&
         createPortal(
@@ -184,7 +189,7 @@ export function DraggableItem({
                 <div className="size-full [&_img]:size-full [&_img]:rounded-none [&_img]:object-cover">
                   {preview}
                 </div>
-                {shouldShowPlusOnDrag && (
+                {!isDragging && showPlusOnDrag && (
                   <PlusButton
                     onClick={handleAddToTimeline}
                     tooltipText="Add to timeline or drag to position"

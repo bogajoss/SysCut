@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/hooks/use-translation";
+
 import {
   Sheet,
   SheetContent,
@@ -26,6 +28,7 @@ import { toast } from "sonner";
 import { useEditor } from "@/editor/use-editor";
 
 export function ScenesView({ children }: { children: React.ReactNode }) {
+  const { t } = useTranslation();
   const editor = useEditor();
   const scenes = editor.scenes.getScenes();
   const currentScene = editor.scenes.getActiveScene();
@@ -155,7 +158,7 @@ export function ScenesView({ children }: { children: React.ReactNode }) {
                   )}
                   onClick={() => handleSceneSwitch(scene.id)}
                 >
-                  <span>{scene.name}</span>
+                  <span>{scene.name === "Main scene" ? t.editor.timeline.toolbar.mainScene : scene.name}</span>
                   <div className="flex items-center gap-2">
                     {((isSelectMode && selectedScenes.has(scene.id)) ||
                       (!isSelectMode && currentScene?.id === scene.id)) && (

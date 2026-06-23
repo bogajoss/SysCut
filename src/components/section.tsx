@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, use, useEffect, useState } from "react";
 import { cn } from "@/utils/ui";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowDownIcon } from "@hugeicons/core-free-icons";
@@ -17,7 +17,7 @@ interface SectionContext {
 const SectionCtx = createContext<SectionContext | null>(null);
 
 function useSectionContext() {
-  return useContext(SectionCtx);
+  return use(SectionCtx);
 }
 
 interface SectionProps {

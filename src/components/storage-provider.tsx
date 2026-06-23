@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, use, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useEditor } from "@/editor/use-editor";
 import { storageService } from "@/services/storage/service";
@@ -15,7 +15,7 @@ interface StorageContextType {
 const StorageContext = createContext<StorageContextType | null>(null);
 
 export function useStorage() {
-  const context = useContext(StorageContext);
+  const context = use(StorageContext);
   if (!context) {
     throw new Error("useStorage must be used within StorageProvider");
   }

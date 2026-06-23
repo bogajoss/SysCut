@@ -24,13 +24,13 @@ import {
 } from "./ui/context-menu";
 import { useTranslation } from "@/hooks/use-translation";
 
+const links: { label: string; href: string }[] = [];
+
 export function Header() {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
-
-  const links: { label: string; href: string }[] = [];
 
   return (
     <header className="bg-background shadow-background/85 sticky top-0 z-10 shadow-[0_30px_35px_15px_rgba(0,0,0,1)]">

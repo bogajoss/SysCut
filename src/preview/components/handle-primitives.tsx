@@ -1,5 +1,5 @@
 "use client";
-
+import React, { useMemo } from "react";
 import { cn } from "@/utils/ui";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { IconSvgElement } from "@hugeicons/react";
@@ -220,21 +220,27 @@ export function BoundingBoxOutline({
   onPointerMove?: (event: React.PointerEvent) => void;
   onPointerUp?: (event: React.PointerEvent) => void;
 }) {
+  const style = useMemo<React.CSSProperties>(
+    () => ({
+      left: center.x - outlineWidth / 2,
+      top: center.y - outlineHeight / 2,
+      width: outlineWidth,
+      height: outlineHeight,
+      transform: `rotate(${rotation}deg)`,
+      cursor,
+    }),
+    [center.x, center.y, outlineWidth, outlineHeight, rotation, cursor]
+  );
+
   return (
     <svg
-      className="absolute overflow-visible"
+      className={cn(
+        "absolute overflow-visible origin-center",
+        onPointerDown ? "pointer-events-auto" : "pointer-events-none"
+      )}
       aria-hidden="true"
       focusable="false"
-      style={{
-        left: center.x - outlineWidth / 2,
-        top: center.y - outlineHeight / 2,
-        width: outlineWidth,
-        height: outlineHeight,
-        transform: `rotate(${rotation}deg)`,
-        transformOrigin: "center center",
-        pointerEvents: onPointerDown ? "auto" : "none",
-        cursor,
-      }}
+      style={style}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
@@ -277,21 +283,27 @@ export function ShapeOutline({
   onPointerMove?: (event: React.PointerEvent) => void;
   onPointerUp?: (event: React.PointerEvent) => void;
 }) {
+  const style = useMemo<React.CSSProperties>(
+    () => ({
+      left: center.x - outlineWidth / 2,
+      top: center.y - outlineHeight / 2,
+      width: outlineWidth,
+      height: outlineHeight,
+      transform: `rotate(${rotation}deg)`,
+      cursor,
+    }),
+    [center.x, center.y, outlineWidth, outlineHeight, rotation, cursor]
+  );
+
   return (
     <svg
-      className="absolute overflow-visible"
+      className={cn(
+        "absolute overflow-visible origin-center",
+        onPointerDown ? "pointer-events-auto" : "pointer-events-none"
+      )}
       aria-hidden="true"
       focusable="false"
-      style={{
-        left: center.x - outlineWidth / 2,
-        top: center.y - outlineHeight / 2,
-        width: outlineWidth,
-        height: outlineHeight,
-        transform: `rotate(${rotation}deg)`,
-        transformOrigin: "center center",
-        pointerEvents: onPointerDown ? "auto" : "none",
-        cursor,
-      }}
+      style={style}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}

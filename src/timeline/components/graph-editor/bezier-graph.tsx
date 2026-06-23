@@ -90,6 +90,9 @@ function clampHandleY({ svgY }: { svgY: number }) {
   return Math.max(HANDLE_RADIUS, Math.min(SVG_HEIGHT - HANDLE_RADIUS, svgY));
 }
 
+const p0 = { x: toSvgX({ value: 0 }), y: toSvgY({ value: 0 }) };
+const p1 = { x: toSvgX({ value: 1 }), y: toSvgY({ value: 1 }) };
+
 export function BezierGraph({
   value,
   onChange,
@@ -167,8 +170,6 @@ export function BezierGraph({
   const c2 = { x: toSvgX({ value: value[2] }), y: toSvgY({ value: value[3] }) };
   const c1Clamped = { x: c1.x, y: clampHandleY({ svgY: c1.y }) };
   const c2Clamped = { x: c2.x, y: clampHandleY({ svgY: c2.y }) };
-  const p0 = { x: toSvgX({ value: 0 }), y: toSvgY({ value: 0 }) };
-  const p1 = { x: toSvgX({ value: 1 }), y: toSvgY({ value: 1 }) };
 
   return (
     <svg

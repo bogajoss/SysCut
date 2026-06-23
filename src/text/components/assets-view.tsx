@@ -44,7 +44,7 @@ export function TextView() {
         }}
         aspectRatio={1}
         onAddToTimeline={handleAddToTimeline}
-        shouldShowLabel={false}
+        options={{ showLabel: false }}
       />
     </PanelView>
   );

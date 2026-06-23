@@ -56,8 +56,14 @@ export function AudioVolumeLine({
   const editor = useEditor();
   const surfaceRef = useRef<HTMLDivElement>(null);
   const activePointerIdRef = useRef<number | null>(null);
-  const startVolumeRef = useRef(getElementVolume({ element }));
-  const lastPreviewVolumeRef = useRef(getElementVolume({ element }));
+  const startVolumeRef = useRef<number>(null as any);
+  if (startVolumeRef.current === null) {
+    startVolumeRef.current = getElementVolume({ element });
+  }
+  const lastPreviewVolumeRef = useRef<number>(null as any);
+  if (lastPreviewVolumeRef.current === null) {
+    lastPreviewVolumeRef.current = getElementVolume({ element });
+  }
   const hasChangedRef = useRef(false);
   const [isDragging, setIsDragging] = useState(false);
   const [tooltipClientPos, setTooltipClientPos] = useState<{

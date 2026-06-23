@@ -384,9 +384,12 @@ function ProjectActions() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const savedProjects = editor.project.getSavedProjects();
-  const selectedProjectNames = savedProjects
-    .filter((project) => selectedProjectIds.includes(project.id))
-    .map((project) => project.name);
+  const selectedProjectNames = savedProjects.reduce<string[]>((acc, project) => {
+    if (selectedProjectIds.includes(project.id)) {
+      acc.push(project.name);
+    }
+    return acc;
+  }, []);
 
   const handleDuplicate = async () => {
     await editor.project.duplicateProjects({ ids: selectedProjectIds });

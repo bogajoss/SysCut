@@ -27,12 +27,28 @@ export function SelectableSurface({
   onRevealComplete,
   onSelectionChange,
 }: SelectableSurfaceProps) {
-  const [selectionState, setSelectionState] = useState<SelectionState>(() =>
+  const [selectionState, setSelectionStateRaw] = useState<SelectionState>(() =>
     clearSelection(),
+  );
+
+  const setSelectionState = useCallback(
+    (updater: React.SetStateAction<SelectionState>) => {
+      setSelectionStateRaw((prev) => {
+        const next = typeof updater === "function" ? updater(prev) : updater;
+        if (next !== prev) {
+          Promise.resolve().then(() => onSelectionChange?.(next));
+        }
+        return next;
+      });
+    },
+    [onSelectionChange],
   );
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const itemElementsRef = useRef<Map<string, HTMLElement>>(new Map());
+  const itemElementsRef = useRef<Map<string, HTMLElement>>(null as any);
+  if (itemElementsRef.current === null) {
+    itemElementsRef.current = new Map();
+  }
 
   const registerItem = useCallback(
     (id: string, element: HTMLElement | null) => {
@@ -228,9 +244,7 @@ export function SelectableSurface({
     }
   }
 
-  useEffect(() => {
-    onSelectionChange?.(selectionState);
-  }, [onSelectionChange, selectionState]);
+  // Removed useEffect to prevent data pass to parent bug
 
   useEffect(() => {
     if (!revealId) {
