@@ -67,13 +67,14 @@ function GridGuideOverlay() {
   );
 }
 
+const clampGridValue = (value: number) =>
+  clampRound({ value, min: GRID_MIN, max: GRID_MAX });
+
 function GridGuideOptions() {
   const rows = usePreviewStore((s) => s.gridConfig.rows);
   const cols = usePreviewStore((s) => s.gridConfig.cols);
   const setGridConfig = usePreviewStore((s) => s.setGridConfig);
 
-  const clampGridValue = (value: number) =>
-    clampRound({ value, min: GRID_MIN, max: GRID_MAX });
 
   return (
     <div className="flex gap-2">

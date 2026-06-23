@@ -70,6 +70,7 @@ export function GraphEditorPopover({
     value == null
       ? null
       : (allPresets.find((preset) =>
+          preset.value.length === value.length &&
           preset.value.every(
             (presetValue, index) =>
               Math.abs(presetValue - value[index]) < PRESET_MATCH_TOLERANCE,

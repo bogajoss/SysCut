@@ -314,6 +314,33 @@ function SoundEffectsView() {
   );
 }
 
+const convertToSoundEffect = ({
+  savedSound,
+}: {
+  savedSound: SavedSound;
+}): SoundEffect => ({
+  id: savedSound.id,
+  name: savedSound.name,
+  description: "",
+  url: "",
+  previewUrl: savedSound.previewUrl,
+  downloadUrl: savedSound.downloadUrl,
+  duration: savedSound.duration,
+  filesize: 0,
+  type: "audio",
+  channels: 0,
+  bitrate: 0,
+  bitdepth: 0,
+  samplerate: 0,
+  username: savedSound.username,
+  tags: savedSound.tags,
+  license: savedSound.license,
+  created: savedSound.savedAt,
+  downloads: 0,
+  rating: 0,
+  ratingCount: 0,
+});
+
 function SavedSoundsView() {
   const { t } = useTranslation();
   const {
@@ -361,33 +388,6 @@ function SavedSoundsView() {
       setPlayingId(sound.id);
     }
   };
-
-  const convertToSoundEffect = ({
-    savedSound,
-  }: {
-    savedSound: SavedSound;
-  }): SoundEffect => ({
-    id: savedSound.id,
-    name: savedSound.name,
-    description: "",
-    url: "",
-    previewUrl: savedSound.previewUrl,
-    downloadUrl: savedSound.downloadUrl,
-    duration: savedSound.duration,
-    filesize: 0,
-    type: "audio",
-    channels: 0,
-    bitrate: 0,
-    bitdepth: 0,
-    samplerate: 0,
-    username: savedSound.username,
-    tags: savedSound.tags,
-    license: savedSound.license,
-    created: savedSound.savedAt,
-    downloads: 0,
-    rating: 0,
-    ratingCount: 0,
-  });
 
   if (isLoadingSavedSounds) {
     return (

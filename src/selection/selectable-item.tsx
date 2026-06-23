@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useCallback } from "react";
+import { useCallback } from "react";
 import { useSelectionContext } from "@/selection/context";
 import { SELECTABLE_ITEM_ATTRIBUTE } from "@/selection/attributes";
 import type { SelectableItemProps } from "@/selection/types";
@@ -10,7 +10,7 @@ function setForwardedRef<T>({
   ref,
   value,
 }: {
-  ref: React.ForwardedRef<T>;
+  ref: React.Ref<T> | undefined;
   value: T | null;
 }) {
   if (typeof ref === "function") {
@@ -23,21 +23,18 @@ function setForwardedRef<T>({
   }
 }
 
-export const SelectableItem = forwardRef<HTMLDivElement, SelectableItemProps>(
-  function SelectableItem(
-    {
-      id,
-      children,
-      className,
-      onClick,
-      onKeyDown,
-      onMouseDown,
-      onContextMenu,
-      tabIndex,
-      ...rest
-    }: SelectableItemProps,
-    forwardedRef,
-  ) {
+export function SelectableItem({
+  id,
+  children,
+  className,
+  onClick,
+  onKeyDown,
+  onMouseDown,
+  onContextMenu,
+  tabIndex,
+  ref,
+  ...rest
+}: SelectableItemProps & { ref?: React.Ref<HTMLDivElement> }) {
     const {
       highlightedId,
       isBoxSelecting,
@@ -61,9 +58,9 @@ export const SelectableItem = forwardRef<HTMLDivElement, SelectableItemProps>(
     const handleRef = useCallback(
       (element: HTMLDivElement | null) => {
         registerItem(id, element);
-        setForwardedRef({ ref: forwardedRef, value: element });
+        setForwardedRef({ ref, value: element });
       },
-      [forwardedRef, id, registerItem],
+      [ref, id, registerItem],
     );
 
     return (
@@ -109,5 +106,4 @@ export const SelectableItem = forwardRef<HTMLDivElement, SelectableItemProps>(
         {children}
       </div>
     );
-  },
-);
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { useElementPlayhead } from "@/components/editor/panels/properties/hooks/use-element-playhead";
 import {
   useKeyframedParamProperty,
@@ -115,7 +115,7 @@ function StrokeSection({
   const lastStrokeWidth = useRef(DEFAULT_STROKE_WIDTH);
   const isStrokeEnabled = Number(element.params.strokeWidth ?? 0) > 0;
 
-  const toggleStroke = () => {
+  const toggleStroke = useCallback(() => {
     if (isStrokeEnabled) {
       lastStrokeWidth.current = Number(
         element.params.strokeWidth ?? DEFAULT_STROKE_WIDTH,
@@ -145,7 +145,26 @@ function StrokeSection({
         ],
       });
     }
-  };
+  }, [editor.timeline, element.id, element.params, isStrokeEnabled, trackId]);
+
+  const trailingNode = useMemo(
+    () => (
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={(event) => {
+          event.stopPropagation();
+          toggleStroke();
+        }}
+      >
+        <HugeiconsIcon
+          icon={isStrokeEnabled ? MinusSignIcon : PlusSignIcon}
+          strokeWidth={1}
+        />
+      </Button>
+    ),
+    [isStrokeEnabled, toggleStroke],
+  );
 
   return (
     <Section
@@ -154,21 +173,7 @@ function StrokeSection({
       sectionKey={`${element.id}:stroke`}
     >
       <SectionHeader
-        trailing={
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={(event) => {
-              event.stopPropagation();
-              toggleStroke();
-            }}
-          >
-            <HugeiconsIcon
-              icon={isStrokeEnabled ? MinusSignIcon : PlusSignIcon}
-              strokeWidth={1}
-            />
-          </Button>
-        }
+        trailing={trailingNode}
       >
         <SectionTitle>Stroke</SectionTitle>
       </SectionHeader>

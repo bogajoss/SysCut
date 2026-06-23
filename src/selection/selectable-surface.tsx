@@ -31,17 +31,20 @@ export function SelectableSurface({
     clearSelection(),
   );
 
+  const onSelectionChangeRef = useRef(onSelectionChange);
+  onSelectionChangeRef.current = onSelectionChange;
+
   const setSelectionState = useCallback(
     (updater: React.SetStateAction<SelectionState>) => {
       setSelectionStateRaw((prev) => {
         const next = typeof updater === "function" ? updater(prev) : updater;
         if (next !== prev) {
-          Promise.resolve().then(() => onSelectionChange?.(next));
+          Promise.resolve().then(() => onSelectionChangeRef.current?.(next));
         }
         return next;
       });
     },
-    [onSelectionChange],
+    [],
   );
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -96,7 +99,7 @@ export function SelectableSurface({
 
   const clearSelectionState = useCallback(() => {
     setSelectionState(clearSelection());
-  }, []);
+  }, [setSelectionState]);
 
   const selectedIdSet = useMemo(
     () => new Set(selectionState.selectedIds),
@@ -143,7 +146,7 @@ export function SelectableSurface({
         });
       });
     },
-    [orderedIds],
+    [orderedIds, setSelectionState],
   );
 
   const selectUnselectedItem = useCallback((id: string) => {
@@ -154,7 +157,7 @@ export function SelectableSurface({
 
       return replaceSelection({ ids: [id], anchorId: id });
     });
-  }, []);
+  }, [setSelectionState]);
 
   const handleItemMouseDown = useCallback(
     ({
@@ -177,7 +180,7 @@ export function SelectableSurface({
     (change: Parameters<typeof applyBoxSelection>[0]) => {
       setSelectionState(applyBoxSelection(change));
     },
-    [],
+    [setSelectionState],
   );
 
   const { selectionBox, handleMouseDown, isSelecting, shouldIgnoreClick } =

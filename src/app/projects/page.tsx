@@ -822,6 +822,27 @@ function ProjectContextMenuContent({
   );
 }
 
+const handleMenuClick = ({
+  event,
+}: {
+  event: React.MouseEvent<HTMLButtonElement>;
+}) => {
+  event.preventDefault();
+  event.stopPropagation();
+};
+
+const handleMenuKeyDown = ({
+  event,
+}: {
+  event: React.KeyboardEvent<HTMLButtonElement>;
+}) => {
+  if (event.key !== "Enter" && event.key !== " ") {
+    return;
+  }
+  event.preventDefault();
+  event.stopPropagation();
+};
+
 function ProjectMenu({
   isOpen,
   onOpenChange,
@@ -840,26 +861,6 @@ function ProjectMenu({
   onInfoClick: () => void;
 }) {
   const { t } = useTranslation();
-  const handleMenuClick = ({
-    event,
-  }: {
-    event: MouseEvent<HTMLButtonElement>;
-  }) => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
-
-  const handleMenuKeyDown = ({
-    event,
-  }: {
-    event: KeyboardEvent<HTMLButtonElement>;
-  }) => {
-    if (event.key !== "Enter" && event.key !== " ") {
-      return;
-    }
-    event.preventDefault();
-    event.stopPropagation();
-  };
 
   const handleRename = () => {
     onRenameClick();

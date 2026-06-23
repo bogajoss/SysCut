@@ -63,7 +63,6 @@ export function TextEditOverlay({
 
   const canvasSize = editor.project.getActive().settings.canvasSize;
 
-  if (!canvasSize) return null;
 
   const currentTime = editor.playback.getCurrentTime();
   const localTime = getElementLocalTime({
@@ -86,7 +85,7 @@ export function TextEditOverlay({
   const textParams = buildTextLayoutParamsFromElement({ element });
   const resolvedTextLayout = resolveTextLayout({
     text: textParams,
-    canvasHeight: canvasSize.height,
+    canvasHeight: canvasSize?.height ?? 1080,
   });
 
   const lineHeight = textParams.lineHeight ?? DEFAULTS.text.lineHeight;
@@ -153,6 +152,8 @@ export function TextEditOverlay({
       canvasPaddingX,
     ]
   );
+
+  if (!canvasSize) return null;
 
   return (
     <div className="absolute origin-center" style={containerStyle}>

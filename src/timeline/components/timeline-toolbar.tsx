@@ -52,6 +52,17 @@ import { PopoverTrigger } from "@/components/ui/popover";
 import { useGraphEditorController } from "./graph-editor/use-controller";
 import { useTranslation } from "@/hooks/use-translation";
 
+const handleAction = ({
+  action,
+  event,
+}: {
+  action: TActionWithOptionalArgs;
+  event: React.MouseEvent;
+}) => {
+  event.stopPropagation();
+  invokeAction(action);
+};
+
 export function TimelineToolbar({
   zoomLevel,
   minZoom,
@@ -131,16 +142,6 @@ function ToolbarLeftSection() {
       element: selectedElement.element,
     });
 
-  const handleAction = ({
-    action,
-    event,
-  }: {
-    action: TActionWithOptionalArgs;
-    event: React.MouseEvent;
-  }) => {
-    event.stopPropagation();
-    invokeAction(action);
-  };
 
   return (
     <div className="flex items-center gap-1">

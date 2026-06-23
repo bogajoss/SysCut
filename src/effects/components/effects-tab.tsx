@@ -5,6 +5,7 @@ import type { ParamValues } from "@/params";
 import type { Effect } from "@/effects/types";
 import type { EffectElement, VisualElement } from "@/timeline";
 import { effectsRegistry } from "@/effects";
+import { useMemo } from "react";
 import { useEditor } from "@/editor/use-editor";
 import { useElementPreview } from "@/timeline/hooks/use-element-preview";
 import {
@@ -246,6 +247,31 @@ function EffectSection({
   onRemove?: () => void;
 }) {
   const definition = effectsRegistry.get(effect.type);
+  const trailingNode = useMemo(() => {
+    if (!onToggle) return undefined;
+    return (
+      <div className="flex items-center gap-1">
+        <Button
+          variant={effect.enabled ? "secondary" : "ghost"}
+          size="icon"
+          aria-label={`Toggle ${definition.name}`}
+          onClick={onToggle}
+        >
+          <HugeiconsIcon
+            icon={effect.enabled ? ViewIcon : ViewOffSlashIcon}
+          />
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label={`Remove ${definition.name}`}
+          onClick={onRemove}
+        >
+          <HugeiconsIcon icon={Delete02Icon} />
+        </Button>
+      </div>
+    );
+  }, [onToggle, onRemove, effect.enabled, definition.name]);
 
   return (
     <Section
@@ -254,30 +280,7 @@ function EffectSection({
     >
       <SectionHeader
         className={cn(onToggle && "cursor-move")}
-        trailing={
-          onToggle && (
-            <div className="flex items-center gap-1">
-              <Button
-                variant={effect.enabled ? "secondary" : "ghost"}
-                size="icon"
-                aria-label={`Toggle ${definition.name}`}
-                onClick={onToggle}
-              >
-                <HugeiconsIcon
-                  icon={effect.enabled ? ViewIcon : ViewOffSlashIcon}
-                />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label={`Remove ${definition.name}`}
-                onClick={onRemove}
-              >
-                <HugeiconsIcon icon={Delete02Icon} />
-              </Button>
-            </div>
-          )
-        }
+        trailing={trailingNode}
       >
         <SectionTitle
           className={cn(onToggle && !effect.enabled && "text-muted-foreground")}

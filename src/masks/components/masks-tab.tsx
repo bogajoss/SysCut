@@ -17,11 +17,12 @@ import {
   ArrowExpandIcon,
   Delete02Icon,
   FeatherIcon,
+
   PlusSignIcon,
   RotateClockwiseIcon,
   TextFontIcon,
 } from "@hugeicons/core-free-icons";
-import { useMemo, useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { ColorPicker } from "@/components/ui/color-picker";
 import { FontPicker } from "@/components/ui/font-picker";
@@ -332,43 +333,48 @@ function MaskItem({
   const editor = useEditor();
   const definition = getMaskDefinition(mask.type);
 
+  const trailingNode = useMemo(
+    () => (
+      <div className="flex items-center gap-1">
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label={`Toggle ${definition.name} mask inversion`}
+          onClick={() =>
+            editor.timeline.toggleMaskInverted({
+              trackId,
+              elementId,
+              maskId: mask.id,
+            })
+          }
+        >
+          <OcMirrorIcon
+            className={cn(mask.params.inverted && "-scale-x-100")}
+          />
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label={`Remove ${definition.name} mask`}
+          onClick={() =>
+            editor.timeline.removeMask({
+              trackId,
+              elementId,
+              maskId: mask.id,
+            })
+          }
+        >
+          <HugeiconsIcon icon={Delete02Icon} />
+        </Button>
+      </div>
+    ),
+    [definition.name, editor.timeline, elementId, mask.id, mask.params.inverted, trackId],
+  );
+
   return (
     <Section sectionKey={`mask-item:${mask.id}`} showTopBorder={false}>
       <SectionHeader
-        trailing={
-          <div className="flex items-center gap-1">
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label={`Toggle ${definition.name} mask inversion`}
-              onClick={() =>
-                editor.timeline.toggleMaskInverted({
-                  trackId,
-                  elementId,
-                  maskId: mask.id,
-                })
-              }
-            >
-              <OcMirrorIcon
-                className={cn(mask.params.inverted && "-scale-x-100")}
-              />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label={`Remove ${definition.name} mask`}
-              onClick={() =>
-                editor.timeline.removeMask({
-                  trackId,
-                  elementId,
-                  maskId: mask.id,
-                })
-              }
-            >
-              <HugeiconsIcon icon={Delete02Icon} />
-            </Button>
-          </div>
-        }
+        trailing={trailingNode}
       >
         <div className="flex items-center gap-2">
           <HugeiconsIcon {...definition.icon} size={14} />
